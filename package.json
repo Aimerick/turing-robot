@@ -1,0 +1,22 @@
+{
+  "name": "turing-robot",
+  "version": "1.0.0",
+  "description": "turing-robot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aimerick/turing-robot.git"
+  },
+  "keywords": [
+    "turing-robot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aimerick/turing-robot/issues"
+  },
+  "homepage": "https://github.com/Aimerick/turing-robot#readme"
+}
