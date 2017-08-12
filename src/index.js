@@ -4,6 +4,12 @@ let colors = require('./color'),
 
 const API_KEY = '6824998c8b574bd1bba7ba5363a341ab';
 
+const RESPONSE_TYPE = {
+    TEXT: 100000,
+    LINK: 200000,
+    NEWS: 302000
+}
+
 function welcome(){
     let welcomeMsg = '库啵库啵啵你好冒险者';
     Array.prototype.forEach.call(welcomeMsg, (it) => {
@@ -28,6 +34,10 @@ rl.question('> 阁下尊姓大名：', (answer) => {
 
 function chat(){
     rl.question('> 你有什么想问库啵的吗~♪ :', (query) => {
+        if(!query){
+            colors.colorLog('再见库啵');
+            process.exit(0);
+        }
         let req = http.request({
             hostname: 'www.tuling123.com',
             path: '/openapi/api',
@@ -42,7 +52,8 @@ function chat(){
                 data += chunk;
             });
             res.on('end', () => {
-                console.log(data);
+                colors.colorLog(handleResponse(data));
+                chat();
             })
         });
         req.write(JSON.stringify({
@@ -53,5 +64,23 @@ function chat(){
 
         req.end();
     })
+}
+
+function handleResponse(data){
+    let res = JSON.parse(data);
+    switch(res.code){
+        case RESPONSE_TYPE.TEXT:
+            return res.text;
+        case RESPONSE_TYPE.LINK:
+            return `${res.text}:${res.url}`;
+        case RESPONSE_TYPE.NEWS:
+            let listInfo = '';
+            (res.list || []).forEach((it) => {
+                listInfo += `\n文章：${it.article}\n来源：${it.source}\n链接：${it.detailurl}`;
+            })
+            return `${res.text}\n${listInfo}`;
+        default: 
+            return res.text;
+    }
 }
 
