@@ -4,12 +4,16 @@
   "description": "turing-robot",
   "main": "index.js",
   "scripts": {
+    "start": "node ./bin/chat.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aimerick/turing-robot.git"
   },
+  "bin": {
+    "funny-robot": "./bin/chat.js"
+  }
   "keywords": [
     "turing-robot"
   ],
